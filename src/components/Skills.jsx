@@ -6,9 +6,9 @@ const Skills = () => {
     { name: 'Languages', skills: ['C++', 'Java', 'Python', 'JavaScript'] },
     { name: 'Frontend', skills: ['HTML/CSS', 'React', 'Next.js', 'Tailwind CSS', 'Bootstrap'] },
     { name: 'Backend', skills: ['Node.js', 'Express', 'REST API'] },
-    { name: 'Databases', skills: ['MySQL', 'MongoDB', 'SQLite'] },
-    { name: 'Cloud & DevOps', skills: ['AWS', 'Git', 'GitHub'] },
-    { name: 'Other', skills: ['Data Structures & Algorithms', 'Salesforce Development', 'Blockchain'] }
+    { name: 'Databases', skills: ['MySQL', 'PostgreSQL','Sequelize ORM'] },
+    { name: 'Tools', skills: ['AWS', 'Git', 'GitHub','Postman', 'Thunder Client'] },
+    { name: 'Other', skills: ['Data Structures & Algorithms', 'Salesforce Development'] }
   ];
 
   return (

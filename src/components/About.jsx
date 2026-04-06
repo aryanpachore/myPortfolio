@@ -20,10 +20,7 @@ const About = () => {
               My technical expertise spans full-stack development, cloud computing, and AI technologies.
               I enjoy creating innovative solutions to real-world problems through code.
             </p>
-            <p>
-              When I'm not coding, you can find me solving algorithmic challenges on LeetCode,
-              contributing to open-source projects, or exploring new technologies.
-            </p>
+            
             
             <div className="about-education">
               <h3>Education</h3>

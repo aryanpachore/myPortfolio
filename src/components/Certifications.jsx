@@ -1,9 +1,16 @@
 // src/components/Certifications.jsx
 import React from 'react';
 import { FaAws, FaSalesforce, FaCertificate } from 'react-icons/fa';
+import { SiOracle } from 'react-icons/si'; // Import Oracle icon from Simple Icons
 
 const Certifications = () => {
   const certifications = [
+    {
+      title: "Oracle Cloud Infrastructure Gen AI",
+      issuer: "Oracle",
+      icon: <SiOracle className="cert-icon" />, // Updated to use SiOracle
+      description: "Validated expertise in Large Language Models (LLMs) and OCI Generative AI services"
+    },
     {
       title: "AWS Cloud Architect",
       issuer: "Ethnus",
