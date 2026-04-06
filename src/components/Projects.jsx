@@ -13,7 +13,7 @@ const projects = [
       "Integrated Gemini AI to forecast bloom dates with 85% accuracy",
       "Visualized phenology data for 50+ species across 48 US states"
     ],
-    githubUrl: "https://github.com/aryanpachore",
+    githubUrl: "https://github.com/aryanpachore/Splunk-ChronoBloom-Addon",
     demoUrl: "#",
     accentColor: "#22d3ee",
     gradientFrom: "#0e7490",
@@ -31,7 +31,7 @@ const projects = [
       "RAG-based engine using Gemini embeddings and Pinecone vector DB",
       "Hydrates dynamic dashboard widgets in under 3 seconds"
     ],
-    githubUrl: "https://github.com/aryanpachore",
+    githubUrl: "https://github.com/aryanpachore/ET-Hackathon",
     demoUrl: "#",
     accentColor: "#a78bfa",
     gradientFrom: "#4c1d95",
@@ -49,7 +49,7 @@ const projects = [
       "Hallucination-free responses with less than 2s latency via Groq",
       "Automated Health Check reduced manual review time by 80%"
     ],
-    githubUrl: "https://github.com/aryanpachore",
+    githubUrl: "https://github.com/aryanpachore/Capstone",
     demoUrl: "#",
     accentColor: "#34d399",
     gradientFrom: "#065f46",
@@ -67,7 +67,7 @@ const projects = [
       "Integrated real-time video consultation, increasing remote patient accessibility by 30%",
       "Secured patient data with encryption and JWT session management for data integrity"
     ],
-    githubUrl: "https://github.com/aryanpachore",
+    githubUrl: "https://github.com/ankur-patra/CuraWave-3.0",
     demoUrl: "#",
     accentColor: "#f472b6",
     gradientFrom: "#831843",
@@ -85,7 +85,7 @@ const projects = [
       "Integrated Google Generative AI achieving 92% accuracy in waste type identification",
       "Reward system boosted user participation by 45%"
     ],
-    githubUrl: "https://github.com/aryanpachore",
+    githubUrl: "https://github.com/aryanpachore/WasteManagement-",
     demoUrl: "#",
     accentColor: "#86efac",
     gradientFrom: "#14532d",
