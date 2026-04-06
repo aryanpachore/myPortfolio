@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useState, useEffect } from 'react';
 import { HiMenu, HiX } from 'react-icons/hi';
 import ThemeToggle from './ThemeToggle';
@@ -95,19 +94,21 @@ const Navbar = () => {
     <>
       <nav className={`navbar ${scrolled ? 'navbar-scrolled' : ''}`}>
         <div className="navbar-container">
+          
           {/* Desktop Logo - Hidden on mobile */}
           {!isMobile && (
             <div className="navbar-logo">
               <a href="#home" onClick={(e) => { e.preventDefault(); handleNavClick('home'); }}>
                 <div className="navbar-avatar">AP</div>
+                {/* ALWAYS show the name so it acts as the folded button label */}
                 <span className="navbar-name">Aryan</span>
               </a>
             </div>
           )}
           
-          {/* Desktop Navigation - Hidden when scrolled or on mobile */}
+          {/* Desktop Navigation - Always visible on PC, CSS handles folding */}
           {!isMobile && (
-            <div className={`navbar-links ${scrolled ? 'navbar-links-hidden' : ''}`}>
+            <div className="navbar-links">
               {navItems.map(item => (
                 <a
                   key={item.id}
@@ -125,8 +126,8 @@ const Navbar = () => {
             </div>
           )}
           
-          {/* Mobile/Scrolled menu button - Always visible on mobile */}
-          {(isMobile || scrolled) && (
+          {/* Mobile menu button - ONLY visible on mobile */}
+          {isMobile && (
             <div className="navbar-mobile-toggle" onClick={toggleMobileMenu}>
               <button className="mobile-toggle-btn" type="button" aria-label="Toggle navigation">
                 {isOpen ? <HiX /> : <HiMenu />}
@@ -136,8 +137,8 @@ const Navbar = () => {
         </div>
       </nav>
       
-      {/* Mobile Navigation Menu */}
-      {isOpen && (isMobile || scrolled) && (
+      {/* Mobile Navigation Menu - ONLY opens on mobile */}
+      {isOpen && isMobile && (
         <div className="navbar-mobile-menu">
           <div className="mobile-menu-content">
             {navItems.map(item => (

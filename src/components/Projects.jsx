@@ -132,12 +132,14 @@ export default function Projects() {
   useEffect(() => {
     intervalRef.current = setInterval(() => goTo(active + 1, 'right'), 5000);
     return () => clearInterval(intervalRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   const prev = () => {
     clearInterval(intervalRef.current);
     goTo(active - 1, 'left');
   };
+  
   const next = () => {
     clearInterval(intervalRef.current);
     goTo(active + 1, 'right');
@@ -146,398 +148,95 @@ export default function Projects() {
   const p = projects[active];
 
   return (
-    <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
+    <section id="projects" className="projects">
+      {/* Wrapped the text in a span to trigger the gradient from index.css */}
+      <h2 className="projects-title"><span>Projects</span></h2>
+      <p className="projects-sub">Exploring the frontier of AI and full-stack engineering</p>
 
-        .projects-section {
-          min-height: 100vh;
-          background: #060b14;
-          padding: 80px 24px;
-          font-family: 'DM Sans', sans-serif;
-          overflow: hidden;
-        }
+      <div className="carousel-wrapper">
+        <div
+          className={`proj-card ${animating ? (direction === 'left' ? 'animating-out-left' : 'animating-out-right') : ''}`}
+        >
+          <div className="proj-card-glow" style={{ background: p.accentColor }} />
 
-        .section-eyebrow {
-          text-align: center;
-          font-size: 12px;
-          font-weight: 500;
-          letter-spacing: 0.2em;
-          text-transform: uppercase;
-          color: #64748b;
-          margin-bottom: 12px;
-        }
-
-        .section-title {
-          text-align: center;
-          font-family: 'Syne', sans-serif;
-          font-size: clamp(28px, 4vw, 48px);
-          font-weight: 800;
-          color: #f8fafc;
-          margin: 0 0 8px;
-          line-height: 1.1;
-        }
-
-        .section-title span {
-          background: linear-gradient(135deg, #38bdf8, #818cf8);
-          -webkit-background-clip: text;
-          -webkit-text-fill-color: transparent;
-          background-clip: text;
-        }
-
-        .section-sub {
-          text-align: center;
-          color: #475569;
-          font-size: 15px;
-          margin-bottom: 56px;
-        }
-
-        .carousel-wrapper {
-          max-width: 860px;
-          margin: 0 auto;
-          position: relative;
-        }
-
-        .card {
-          background: #0d1826;
-          border: 1px solid rgba(255,255,255,0.06);
-          border-radius: 24px;
-          padding: 40px;
-          position: relative;
-          overflow: hidden;
-          transition: opacity 0.3s ease, transform 0.3s ease;
-        }
-
-        .card.animating-out-left {
-          opacity: 0;
-          transform: translateX(-40px);
-        }
-        .card.animating-out-right {
-          opacity: 0;
-          transform: translateX(40px);
-        }
-
-        .card-glow {
-          position: absolute;
-          top: -60px;
-          right: -60px;
-          width: 240px;
-          height: 240px;
-          border-radius: 50%;
-          filter: blur(80px);
-          opacity: 0.15;
-          pointer-events: none;
-        }
-
-        .card-top {
-          display: flex;
-          justify-content: space-between;
-          align-items: flex-start;
-          margin-bottom: 20px;
-          gap: 12px;
-          flex-wrap: wrap;
-        }
-
-        .card-badge {
-          font-size: 11px;
-          font-weight: 500;
-          letter-spacing: 0.05em;
-          padding: 4px 12px;
-          border-radius: 100px;
-          border: 1px solid;
-          white-space: nowrap;
-        }
-
-        .card-date {
-          font-size: 12px;
-          color: #475569;
-          background: rgba(255,255,255,0.04);
-          border: 1px solid rgba(255,255,255,0.06);
-          padding: 4px 12px;
-          border-radius: 100px;
-        }
-
-        .card-title {
-          font-family: 'Syne', sans-serif;
-          font-size: clamp(20px, 3vw, 28px);
-          font-weight: 700;
-          color: #f1f5f9;
-          margin: 0 0 12px;
-          line-height: 1.2;
-        }
-
-        .card-desc {
-          font-size: 14px;
-          color: #64748b;
-          line-height: 1.7;
-          margin-bottom: 28px;
-          font-style: italic;
-        }
-
-        .highlights-label {
-          font-size: 10px;
-          font-weight: 600;
-          letter-spacing: 0.15em;
-          text-transform: uppercase;
-          color: #334155;
-          margin-bottom: 14px;
-        }
-
-        .highlights-list {
-          list-style: none;
-          padding: 0;
-          margin: 0 0 28px;
-          display: flex;
-          flex-direction: column;
-          gap: 10px;
-        }
-
-        .highlight-item {
-          display: flex;
-          align-items: flex-start;
-          gap: 10px;
-          font-size: 14px;
-          color: #94a3b8;
-          line-height: 1.5;
-          padding: 10px 14px;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.04);
-          border-radius: 10px;
-          transition: border-color 0.2s;
-        }
-
-        .highlight-item:hover {
-          border-color: rgba(255,255,255,0.1);
-          color: #cbd5e1;
-        }
-
-        .highlight-dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          flex-shrink: 0;
-          margin-top: 6px;
-        }
-
-        .tech-stack {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 8px;
-          margin-bottom: 32px;
-        }
-
-        .tech-pill {
-          font-size: 11px;
-          font-weight: 500;
-          padding: 5px 12px;
-          border-radius: 100px;
-          border: 1px solid rgba(255,255,255,0.08);
-          color: #94a3b8;
-          background: rgba(255,255,255,0.03);
-          letter-spacing: 0.03em;
-        }
-
-        .card-divider {
-          height: 1px;
-          background: rgba(255,255,255,0.05);
-          margin-bottom: 24px;
-        }
-
-        .card-actions {
-          display: flex;
-          gap: 12px;
-        }
-
-        .btn {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          padding: 10px 20px;
-          border-radius: 10px;
-          font-size: 13px;
-          font-weight: 500;
-          cursor: pointer;
-          text-decoration: none;
-          transition: all 0.2s ease;
-          border: 1px solid;
-        }
-
-        .btn-ghost {
-          background: transparent;
-          border-color: rgba(255,255,255,0.1);
-          color: #94a3b8;
-        }
-        .btn-ghost:hover {
-          background: rgba(255,255,255,0.05);
-          color: #f1f5f9;
-        }
-
-        .btn-primary {
-          border-color: transparent;
-          color: #0d1826;
-          font-weight: 600;
-        }
-        .btn-primary:hover {
-          opacity: 0.85;
-          transform: translateY(-1px);
-        }
-
-        .nav-row {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          gap: 20px;
-          margin-top: 32px;
-        }
-
-        .nav-btn {
-          width: 40px;
-          height: 40px;
-          border-radius: 50%;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.03);
-          color: #64748b;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          cursor: pointer;
-          transition: all 0.2s;
-        }
-        .nav-btn:hover {
-          border-color: rgba(255,255,255,0.2);
-          color: #e2e8f0;
-          background: rgba(255,255,255,0.07);
-        }
-
-        .dots {
-          display: flex;
-          gap: 8px;
-          align-items: center;
-        }
-
-        .dot {
-          width: 6px;
-          height: 6px;
-          border-radius: 50%;
-          background: rgba(255,255,255,0.15);
-          cursor: pointer;
-          transition: all 0.3s ease;
-        }
-        .dot.active {
-          width: 24px;
-          border-radius: 3px;
-        }
-
-        .progress-bar {
-          height: 2px;
-          background: rgba(255,255,255,0.05);
-          border-radius: 100px;
-          margin-bottom: 4px;
-          overflow: hidden;
-        }
-
-        @keyframes progress {
-          from { width: 0%; }
-          to { width: 100%; }
-        }
-
-        .progress-fill {
-          height: 100%;
-          border-radius: 100px;
-          animation: progress 5s linear;
-        }
-      `}</style>
-
-      <section className="projects-section">
-        
-        <h2 className="section-title">Projects</h2>
-        <p className="section-sub">Exploring the frontier of AI and full-stack engineering</p>
-
-        <div className="carousel-wrapper">
-          <div
-            className={`card ${animating ? (direction === 'left' ? 'animating-out-left' : 'animating-out-right') : ''}`}
-          >
-            <div className="card-glow" style={{ background: p.accentColor }} />
-
-            <div className="progress-bar">
-              <div className="progress-fill" key={active} style={{ background: `linear-gradient(90deg, ${p.accentColor}, ${p.accentColor}88)` }} />
-            </div>
-
-            <div className="card-top">
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
-                <span
-                  className="card-badge"
-                  style={{
-                    color: p.badgeColor,
-                    borderColor: `${p.badgeColor}33`,
-                    background: `${p.badgeColor}11`,
-                  }}
-                >
-                  {p.badge}
-                </span>
-              </div>
-              <span className="card-date">{p.date}</span>
-            </div>
-
-            <h3 className="card-title" style={{ color: p.accentColor }}>{p.title}</h3>
-            <p className="card-desc">{p.description}</p>
-
-            <p className="highlights-label">Key Highlights</p>
-            <ul className="highlights-list">
-              {p.highlights.map((h, i) => (
-                <li key={i} className="highlight-item">
-                  <span className="highlight-dot" style={{ background: p.accentColor }} />
-                  <span>{h}</span>
-                </li>
-              ))}
-            </ul>
-
-            <div className="tech-stack">
-              {p.technologies.map((t, i) => (
-                <span key={i} className="tech-pill" style={{ borderColor: `${p.accentColor}22`, color: p.accentColor + 'cc' }}>
-                  {t}
-                </span>
-              ))}
-            </div>
-
-            <div className="card-divider" />
-
-            <div className="card-actions">
-              <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="btn btn-ghost">
-                <GithubIcon /> View Code
-              </a>
-              <a
-                href={p.demoUrl}
-                className="btn btn-primary"
-                style={{ background: `linear-gradient(135deg, ${p.accentColor}, ${p.badgeColor})` }}
-              >
-                <ExternalLinkIcon /> Live Demo
-              </a>
-            </div>
+          <div className="proj-progress-bar">
+            <div className="proj-progress-fill" key={active} style={{ background: `linear-gradient(90deg, ${p.accentColor}, ${p.accentColor}88)` }} />
           </div>
 
-          <div className="nav-row">
-            <button className="nav-btn" onClick={prev} aria-label="Previous">
-              <ChevronIcon dir="left" />
-            </button>
-
-            <div className="dots">
-              {projects.map((proj, i) => (
-                <div
-                  key={i}
-                  className={`dot ${i === active ? 'active' : ''}`}
-                  style={i === active ? { background: proj.accentColor } : {}}
-                  onClick={() => goTo(i, i > active ? 'right' : 'left')}
-                />
-              ))}
+          <div className="proj-card-top">
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexWrap: 'wrap' }}>
+              <span
+                className="proj-card-badge"
+                style={{
+                  color: p.badgeColor,
+                  borderColor: `${p.badgeColor}33`,
+                  background: `${p.badgeColor}11`,
+                }}
+              >
+                {p.badge}
+              </span>
             </div>
+            <span className="proj-card-date">{p.date}</span>
+          </div>
 
-            <button className="nav-btn" onClick={next} aria-label="Next">
-              <ChevronIcon dir="right" />
-            </button>
+          <h3 className="proj-card-title">{p.title}</h3>
+          <p className="proj-card-desc">{p.description}</p>
+
+          <p className="proj-highlights-label">Key Highlights</p>
+          <ul className="proj-highlights-list">
+            {p.highlights.map((h, i) => (
+              <li key={i} className="proj-highlight-item">
+                <span className="proj-highlight-dot" style={{ background: p.accentColor }} />
+                <span>{h}</span>
+              </li>
+            ))}
+          </ul>
+
+          <div className="proj-tech-stack">
+            {p.technologies.map((t, i) => (
+              <span key={i} className="proj-tech-pill">
+                {t}
+              </span>
+            ))}
+          </div>
+
+          <div className="proj-card-divider" />
+
+          <div className="proj-card-actions">
+            <a href={p.githubUrl} target="_blank" rel="noopener noreferrer" className="proj-btn proj-btn-ghost">
+              <GithubIcon /> View Code
+            </a>
+            <a
+              href={p.demoUrl}
+              className="proj-btn proj-btn-primary"
+              style={{ background: `linear-gradient(135deg, ${p.accentColor}, ${p.badgeColor})` }}
+            >
+              <ExternalLinkIcon /> Live Demo
+            </a>
           </div>
         </div>
-      </section>
-    </>
+
+        <div className="proj-nav-row">
+          <button className="proj-nav-btn" onClick={prev} aria-label="Previous">
+            <ChevronIcon dir="left" />
+          </button>
+
+          <div className="proj-dots">
+            {projects.map((proj, i) => (
+              <div
+                key={i}
+                className={`proj-dot ${i === active ? 'active' : ''}`}
+                style={i === active ? { background: proj.accentColor } : {}}
+                onClick={() => goTo(i, i > active ? 'right' : 'left')}
+              />
+            ))}
+          </div>
+
+          <button className="proj-nav-btn" onClick={next} aria-label="Next">
+            <ChevronIcon dir="right" />
+          </button>
+        </div>
+      </div>
+    </section>
   );
 }

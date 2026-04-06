@@ -86,6 +86,7 @@ export default function Achievements() {
   useEffect(() => {
     intervalRef.current = setInterval(() => goTo(active + 1, 'right'), 6000);
     return () => clearInterval(intervalRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [active]);
 
   const prev = () => { clearInterval(intervalRef.current); goTo(active - 1, 'left'); };
@@ -100,9 +101,10 @@ export default function Achievements() {
 
         .ach-section {
           min-height: 100vh;
-          background: #060b14;
+          background: var(--bg-secondary); /* Dynamic */
           padding: 80px 24px;
           font-family: 'DM Sans', sans-serif;
+          transition: background-color 0.3s ease;
         }
 
         .ach-eyebrow {
@@ -111,8 +113,9 @@ export default function Achievements() {
           font-weight: 500;
           letter-spacing: 0.2em;
           text-transform: uppercase;
-          color: #475569;
+          color: var(--text-secondary); /* Dynamic */
           margin-bottom: 12px;
+          transition: color 0.3s ease;
         }
 
         .ach-title {
@@ -120,9 +123,10 @@ export default function Achievements() {
           font-family: 'Syne', sans-serif;
           font-size: clamp(28px, 4vw, 46px);
           font-weight: 800;
-          color: #f8fafc;
+          color: var(--text-primary); /* Dynamic */
           margin: 0 0 8px;
           line-height: 1.1;
+          transition: color 0.3s ease;
         }
 
         .ach-title span {
@@ -134,9 +138,10 @@ export default function Achievements() {
 
         .ach-sub {
           text-align: center;
-          color: #475569;
+          color: var(--text-secondary); /* Dynamic */
           font-size: 15px;
           margin-bottom: 56px;
+          transition: color 0.3s ease;
         }
 
         .ach-tabs {
@@ -150,13 +155,13 @@ export default function Achievements() {
         .ach-tab {
           padding: 8px 20px;
           border-radius: 100px;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.02);
-          color: #475569;
+          border: 1px solid var(--border-color); /* Dynamic */
+          background: var(--highlight-bg); /* Dynamic */
+          color: var(--text-secondary); /* Dynamic */
           font-size: 13px;
           font-weight: 500;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
           font-family: 'DM Sans', sans-serif;
           display: flex;
           align-items: center;
@@ -164,13 +169,13 @@ export default function Achievements() {
         }
 
         .ach-tab:hover {
-          color: #94a3b8;
-          border-color: rgba(255,255,255,0.15);
+          color: var(--text-primary);
+          border-color: var(--highlight-hover-border);
         }
 
         .ach-tab.active {
           border-color: transparent;
-          color: #0d1826;
+          color: #ffffff; /* Explicitly white since backgrounds are colored */
           font-weight: 600;
         }
 
@@ -180,14 +185,19 @@ export default function Achievements() {
         }
 
         .ach-card {
-          background: #0d1826;
-          border: 1px solid rgba(255,255,255,0.06);
+          background: var(--card-bg); /* Dynamic */
+          border: 1px solid var(--border-color); /* Dynamic */
           border-radius: 24px;
           padding: 40px;
           position: relative;
           overflow: hidden;
-          transition: opacity 0.28s ease, transform 0.28s ease;
+          box-shadow: var(--shadow);
+          transition: opacity 0.28s ease, transform 0.28s ease, background-color 0.3s ease, border-color 0.3s ease;
           min-height: 360px;
+        }
+
+        .ach-card:hover {
+          box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
 
         .ach-card.out-left  { opacity: 0; transform: translateX(-36px); }
@@ -205,10 +215,11 @@ export default function Achievements() {
 
         .ach-progress-bar {
           height: 2px;
-          background: rgba(255,255,255,0.05);
+          background: var(--divider); /* Dynamic */
           border-radius: 100px;
           margin-bottom: 28px;
           overflow: hidden;
+          transition: background 0.3s ease;
         }
 
         @keyframes ach-progress { from { width: 0% } to { width: 100% } }
@@ -254,16 +265,15 @@ export default function Achievements() {
           align-items: center;
           justify-content: space-between;
           padding: 14px 18px;
-          background: rgba(255,255,255,0.02);
-          border: 1px solid rgba(255,255,255,0.04);
+          background: var(--highlight-bg); /* Dynamic */
+          border: 1px solid var(--highlight-border); /* Dynamic */
           border-radius: 12px;
-          transition: border-color 0.2s, background 0.2s;
+          transition: border-color 0.3s ease, background-color 0.3s ease;
           gap: 12px;
         }
 
         .ach-item:hover {
-          border-color: rgba(255,255,255,0.1);
-          background: rgba(255,255,255,0.04);
+          border-color: var(--highlight-hover-border);
         }
 
         .ach-item-left {
@@ -281,10 +291,11 @@ export default function Achievements() {
 
         .ach-item-label {
           font-size: 14px;
-          color: #94a3b8;
+          color: var(--text-secondary); /* Dynamic */
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
+          transition: color 0.3s ease;
         }
 
         .ach-item-right {
@@ -302,7 +313,8 @@ export default function Achievements() {
 
         .ach-detail {
           font-size: 12px;
-          color: #475569;
+          color: var(--text-secondary); /* Dynamic */
+          transition: color 0.3s ease;
         }
 
         .ach-nav {
@@ -316,19 +328,19 @@ export default function Achievements() {
         .ach-nav-btn {
           width: 38px; height: 38px;
           border-radius: 50%;
-          border: 1px solid rgba(255,255,255,0.08);
-          background: rgba(255,255,255,0.03);
-          color: #475569;
+          border: 1px solid var(--nav-btn-border); /* Dynamic */
+          background: var(--nav-btn-bg); /* Dynamic */
+          color: var(--text-secondary); /* Dynamic */
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
-          transition: all 0.2s;
+          transition: all 0.3s ease;
         }
         .ach-nav-btn:hover {
-          border-color: rgba(255,255,255,0.18);
-          color: #e2e8f0;
-          background: rgba(255,255,255,0.06);
+          border-color: var(--nav-btn-hover-border);
+          color: var(--text-primary);
+          background: var(--nav-btn-hover-bg);
         }
 
         .ach-dots {
@@ -340,7 +352,7 @@ export default function Achievements() {
         .ach-dot-nav {
           width: 6px; height: 6px;
           border-radius: 50%;
-          background: rgba(255,255,255,0.15);
+          background: var(--dot-bg); /* Dynamic */
           cursor: pointer;
           transition: all 0.3s ease;
         }
@@ -375,7 +387,7 @@ export default function Achievements() {
         }
       `}</style>
 
-      <section className="ach-section">
+      <section id="achievements" className="ach-section">
         <p className="ach-eyebrow">Milestones</p>
         <h2 className="ach-title">Notable <span>Achievements</span></h2>
         <p className="ach-sub">Recognitions, rankings, and community contributions</p>
@@ -435,7 +447,7 @@ export default function Achievements() {
 
             {cat.links && (
               <>
-                <div style={{ height: '1px', background: 'rgba(255,255,255,0.05)', margin: '20px 0 0' }} />
+                <div style={{ height: '1px', background: 'var(--divider)', margin: '20px 0 0', transition: 'background 0.3s ease' }} />
                 <div className="ach-links">
                   {cat.links.map((link, i) => (
                     <a
